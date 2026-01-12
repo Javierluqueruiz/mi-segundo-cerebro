@@ -1,43 +1,41 @@
-// Importamos nuestra conexión a la base de datos
-import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
 
-// Esta función ahora es "async" (asíncrona) porque tiene que esperar a internet
-export default async function Home() {
-  
-  // 1. Pedimos los datos a Supabase
-  // "Selecciona * (todo) de la tabla 'items'"
-  const { data: misCosas, error } = await supabase
-    .from('items')
-    .select('*');
-
-  // Si hay error, lo mostramos en la consola del servidor
-  if (error) console.log('Error cargando cosas:', error);
-
+export default function Home() {
   return (
-    <div className="min-h-screen p-8 bg-slate-900 text-white">
-      <h1 className="text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-        🧠 Mi Segundo Cerebro
-      </h1>
+    <div>
+      <h1 className="text-3xl font-bold mb-6">Hola, Javier 👋</h1>
+      <p className="text-gray-400 mb-8">¿Qué quieres organizar hoy?</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* Si 'misCosas' existe, hacemos el mapa. Si está vacío, no hace nada */}
-        {misCosas?.map((cosa) => (
-          <div key={cosa.id} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-blue-500 transition-colors">
-            
-            <div className="flex justify-between items-start mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                {cosa.categoria}
-              </span>
-              <span className={`text-xs px-2 py-1 rounded text-gray-300 bg-slate-700`}>
-                {cosa.estado}
-              </span>
+        {/* Tarjeta de Acceso a Libros */}
+        <Link href="/libros" className="group block">
+          <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-blue-500 transition-all hover:-translate-y-1">
+            <div className="h-12 w-12 bg-blue-900/50 rounded-lg flex items-center justify-center mb-4 text-2xl group-hover:bg-blue-600 transition-colors">
+              📚
             </div>
-
-            <h2 className="text-xl font-semibold">{cosa.titulo}</h2>
-            
+            <h2 className="text-xl font-bold mb-2">Biblioteca</h2>
+            <p className="text-sm text-gray-400">Gestiona tus lecturas, pendientes y reseñas.</p>
           </div>
-        ))}
+        </Link>
+
+        {/* Tarjeta de Futura Sección (Videojuegos) - Aún no funciona */}
+        <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 opacity-50 cursor-not-allowed">
+          <div className="h-12 w-12 bg-slate-700/50 rounded-lg flex items-center justify-center mb-4 text-2xl">
+            🎮
+          </div>
+          <h2 className="text-xl font-bold mb-2">Videojuegos</h2>
+          <p className="text-sm text-gray-400">Próximamente...</p>
+        </div>
+
+         {/* Tarjeta de Futura Sección (Ideas) */}
+         <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 opacity-50 cursor-not-allowed">
+          <div className="h-12 w-12 bg-slate-700/50 rounded-lg flex items-center justify-center mb-4 text-2xl">
+            💡
+          </div>
+          <h2 className="text-xl font-bold mb-2">Ideas & Regalos</h2>
+          <p className="text-sm text-gray-400">Próximamente...</p>
+        </div>
 
       </div>
     </div>
