@@ -15,7 +15,7 @@ export default function BookForm({ onBookAdded }) {
       autor: formData.get('autor'),
       imagen_url: formData.get('imagen_url'), // <--- ¡Nuevo campo!
       categoria: 'Libro',
-      estado: 'Por leer',
+      estado: 'Pendiente',
     }
 
     const { error } = await supabase.from('items').insert([nuevoLibro])
